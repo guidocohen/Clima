@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlClima"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".MainActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/tvGrados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="159dp"
+        android:text="@string/texto_grados"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorGrados"
+        android:textSize="72sp" />
+
+
+    <TextView
+        android:id="@+id/tvCiudad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvGrados"
+        android:layout_marginTop="30dp"
+        android:text="@string/texto_ciudad"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorCiudad"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tvEstado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvCiudad"
+        android:layout_marginTop="20dp"
+        android:text="@string/texto_estado"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorEstado"
+        android:textSize="24sp" />
+</RelativeLayout>

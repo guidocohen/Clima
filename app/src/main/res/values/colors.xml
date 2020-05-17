@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorBlanco">#FFFFFF</color>
+    <color name="colorGrados">#FFFFFF</color>
+    <color name="colorCiudad">#E7E9FF</color>
+    <color name="colorEstado">#86A8FF</color>
+    <color name="colorArgentina">#18FFFF</color>
+    <color name="colorBrasil">#76FF03</color>
+
+</resources>

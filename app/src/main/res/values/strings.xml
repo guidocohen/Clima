@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Clima</string>
+    <string name="texto_grados">23°</string>
+    <string name="texto_ciudad">Buenos Aires</string>
+    <string name="texto_estado">Soleado con fuertes huracanes</string>
+    <string name="texto_bienvenida">Bienvenido a tu app del clima</string>
+    <string name="texto_boton_argentina">Buenos Aires</string>
+    <string name="texto_boton_brasil">Sao Pablo</string>
+    <string name="page_title">Clima</string>
+
+</resources>
