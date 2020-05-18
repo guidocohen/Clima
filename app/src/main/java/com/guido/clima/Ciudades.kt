@@ -20,16 +20,16 @@ class Ciudades : AppCompatActivity() {
         val bBsAs = findViewById<Button>(R.id.bArgentina)
         val bSaoPablo = findViewById<Button>(R.id.bBrasil)
 
-        bBsAs.setOnClickListener(View.OnClickListener {
+        bBsAs.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra(TAG, "buenos-aires")
             startActivity(intent)
-        })
+        }
 
-        bSaoPablo.setOnClickListener(View.OnClickListener {
+        bSaoPablo.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra(TAG, "sao-pablo")
             startActivity(intent)
-        })
+        }
     }
 }

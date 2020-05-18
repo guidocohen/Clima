@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rlClima"
     android:layout_width="match_parent"
@@ -44,7 +43,7 @@
         android:textSize="24sp" />
 
     <Button
-        android:id="@+id/btConect"
+        android:id="@+id/bConnect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvEstado"
@@ -53,11 +52,20 @@
         android:text="Comprobar conexión" />
 
     <Button
-        android:id="@+id/btRequest"
+        android:id="@+id/bRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btConect"
+        android:layout_below="@+id/bConnect"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="Request HTTP" />
+
+    <Button
+        android:id="@+id/bVolley"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bRequest"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Volley request HTTP" />
 </RelativeLayout>
