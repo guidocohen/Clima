@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvEstado"
-        android:layout_marginTop="71dp"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:text="Comprobar conexión" />
 
@@ -68,4 +68,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="Volley request HTTP" />
+
+    <Button
+        android:id="@+id/bOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bVolley"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Request OkHTTP" />
 </RelativeLayout>

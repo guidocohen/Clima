@@ -11,6 +11,10 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import okhttp3.Call
+import okhttp3.OkHttp
+import okhttp3.OkHttpClient
+import java.io.IOException
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity(), CompletadoListener {
@@ -30,6 +34,7 @@ class MainActivity : AppCompatActivity(), CompletadoListener {
         val bConnect = findViewById<Button>(R.id.bConnect)
         val bRequest = findViewById<Button>(R.id.bRequest)
         val bVolley = findViewById<Button>(R.id.bVolley)
+        val bOk = findViewById<Button>(R.id.bOk)
 
 
         bConnect.setOnClickListener {
@@ -44,10 +49,11 @@ class MainActivity : AppCompatActivity(), CompletadoListener {
             }
         }
 
+        // Request Nativo
         bRequest.setOnClickListener {
             if (Network.hayRed(context)) {
-                Toast.makeText(this, "Hay red", Toast.LENGTH_SHORT).show()
                 DescargarURL(this).execute("https://stackoverflow.com/questions/32547006/connectivitymanager-getnetworkinfoint-deprecated/54641263")
+                Toast.makeText(this, "Se descargó la URL de forma Nativa", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(
                     this,
@@ -57,9 +63,11 @@ class MainActivity : AppCompatActivity(), CompletadoListener {
             }
         }
 
+        // Request Volley de Google
         bVolley.setOnClickListener {
             if (Network.hayRed(context)) {
                 solicitudHTTPVolley("https://stackoverflow.com/questions/32547006/connectivitymanager-getnetworkinfoint-deprecated/54641263")
+                Toast.makeText(this, "Se descargó la URL con Volley", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(
                     this,
@@ -69,6 +77,19 @@ class MainActivity : AppCompatActivity(), CompletadoListener {
             }
         }
 
+        // Request con OkHttp
+        bOk.setOnClickListener {
+            if (Network.hayRed(context)) {
+                solicitudHTTPOkHTTP("https://stackoverflow.com/questions/32547006/connectivitymanager-getnetworkinfoint-deprecated/54641263")
+                Toast.makeText(this, "Se descargó la URL con OkHttp", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Asegúrate que haya una conexión a Internet",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
 
         tvCiudad = findViewById(R.id.tvCiudad)
         tvGrados = findViewById(R.id.tvGrados)
@@ -92,7 +113,7 @@ class MainActivity : AppCompatActivity(), CompletadoListener {
 
     }
 
-    //Metodo para Volley
+    //Método para Volley: Implementación más simple y clara
     private fun solicitudHTTPVolley(url:String) {
         val queue = Volley.newRequestQueue(this)
         val solicitud = StringRequest(Request.Method.GET, url, Response.Listener<String>{
@@ -102,4 +123,26 @@ class MainActivity : AppCompatActivity(), CompletadoListener {
         queue.add(solicitud)
     }
 
+    // Método para OkHTTP: Mayor control en el Response
+    private fun solicitudHTTPOkHTTP(url: String){
+        val cliente = OkHttpClient()
+        val solicitud = okhttp3.Request.Builder().url(url).build()
+
+        cliente.newCall(solicitud).enqueue(object: okhttp3.Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                //Implementar error
+            }
+            override fun onResponse(call: Call, response: okhttp3.Response) {
+                val resultado = response.body?.string()
+
+                this@MainActivity.runOnUiThread {
+                    try {
+                        Log.d("solicitudOkHttp", resultado)
+                    } catch (e: Exception){
+
+                    }
+                }
+            }
+        })
+    }
 }
