@@ -42,4 +42,22 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/colorEstado"
         android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/btConect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvEstado"
+        android:layout_marginTop="71dp"
+        android:layout_centerHorizontal="true"
+        android:text="Comprobar conexión" />
+
+    <Button
+        android:id="@+id/btRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btConect"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Request HTTP" />
 </RelativeLayout>

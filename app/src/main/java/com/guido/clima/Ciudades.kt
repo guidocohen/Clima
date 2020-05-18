@@ -1,10 +1,14 @@
 package com.guido.clima
 
+import Network
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class Ciudades : AppCompatActivity() {
     val TAG = "com.guido.clima.ciudades.CIUDAD"
