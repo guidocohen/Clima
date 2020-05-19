@@ -1,9 +1,9 @@
+package com.guido.clima.conexion
+
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.NetworkInfo
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 
 @Suppress("DEPRECATION")
 class Network {

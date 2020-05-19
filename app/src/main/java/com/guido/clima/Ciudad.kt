@@ -1,13 +1,5 @@
 package com.guido.clima
 
-class Ciudad(nombre:String, grados:Int, estado:String){
-    var nombre:String = ""
-    var grados: Int = 0
-    var estado:String = ""
+class Ciudad(var name:String, var weather:ArrayList<Weather>, var main:Main){
 
-    init {
-        this.nombre = nombre
-        this.grados = grados
-        this.estado = estado
-    }
 }

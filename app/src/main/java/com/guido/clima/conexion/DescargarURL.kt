@@ -1,4 +1,4 @@
-package com.guido.clima
+package com.guido.clima.conexion
 
 import android.os.AsyncTask
 import java.io.IOException
@@ -38,9 +38,7 @@ class DescargarURL(var completadoListener: CompletadoListener?):AsyncTask<String
                 it.readText()
             }
         } finally {
-            if (inputStream != null) {
-                inputStream.close()
-            }
+            inputStream?.close()
         }
     }
 }

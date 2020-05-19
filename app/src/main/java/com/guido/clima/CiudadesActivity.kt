@@ -1,16 +1,11 @@
 package com.guido.clima
 
-import Network
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
-class Ciudades : AppCompatActivity() {
+class CiudadesActivity : AppCompatActivity() {
     val TAG = "com.guido.clima.ciudades.CIUDAD"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,13 +17,13 @@ class Ciudades : AppCompatActivity() {
 
         bBsAs.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra(TAG, "buenos-aires")
+            intent.putExtra(TAG, "3435910")
             startActivity(intent)
         }
 
         bSaoPablo.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra(TAG, "sao-pablo")
+            intent.putExtra(TAG, "3469058")
             startActivity(intent)
         }
     }

@@ -42,39 +42,4 @@
         android:textColor="@color/colorEstado"
         android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/bConnect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvEstado"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:text="Comprobar conexión" />
-
-    <Button
-        android:id="@+id/bRequest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bConnect"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Request HTTP" />
-
-    <Button
-        android:id="@+id/bVolley"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bRequest"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Volley request HTTP" />
-
-    <Button
-        android:id="@+id/bOk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bVolley"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Request OkHTTP" />
 </RelativeLayout>

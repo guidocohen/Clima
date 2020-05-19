@@ -1,148 +1,59 @@
 package com.guido.clima
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import okhttp3.Call
-import okhttp3.OkHttp
-import okhttp3.OkHttpClient
-import java.io.IOException
-import java.lang.Exception
+import com.google.gson.Gson
+import com.guido.clima.conexion.Network
+import com.guido.clima.conexion.VolleyHttp
 
-class MainActivity : AppCompatActivity(), CompletadoListener {
+class MainActivity : AppCompatActivity() {
     private lateinit var tvCiudad: TextView
     private lateinit var tvGrados: TextView
     private lateinit var tvEstado: TextView
 
-    override fun descargaCompleta(resultado:String){
-        Log.d("descargaCompleta", resultado)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val context: Context = this
-
-        val bConnect = findViewById<Button>(R.id.bConnect)
-        val bRequest = findViewById<Button>(R.id.bRequest)
-        val bVolley = findViewById<Button>(R.id.bVolley)
-        val bOk = findViewById<Button>(R.id.bOk)
-
-
-        bConnect.setOnClickListener {
-            if (Network.hayRed(context)) {
-                Toast.makeText(this, "Hay red", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(
-                    this,
-                    "Asegúrate que haya una conexión a Internet",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-
-        // Request Nativo
-        bRequest.setOnClickListener {
-            if (Network.hayRed(context)) {
-                DescargarURL(this).execute("https://stackoverflow.com/questions/32547006/connectivitymanager-getnetworkinfoint-deprecated/54641263")
-                Toast.makeText(this, "Se descargó la URL de forma Nativa", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(
-                    this,
-                    "Asegúrate que haya una conexión a Internet",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-
-        // Request Volley de Google
-        bVolley.setOnClickListener {
-            if (Network.hayRed(context)) {
-                solicitudHTTPVolley("https://stackoverflow.com/questions/32547006/connectivitymanager-getnetworkinfoint-deprecated/54641263")
-                Toast.makeText(this, "Se descargó la URL con Volley", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(
-                    this,
-                    "Asegúrate que haya una conexión a Internet",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-
-        // Request con OkHttp
-        bOk.setOnClickListener {
-            if (Network.hayRed(context)) {
-                solicitudHTTPOkHTTP("https://stackoverflow.com/questions/32547006/connectivitymanager-getnetworkinfoint-deprecated/54641263")
-                Toast.makeText(this, "Se descargó la URL con OkHttp", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(
-                    this,
-                    "Asegúrate que haya una conexión a Internet",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
 
         tvCiudad = findViewById(R.id.tvCiudad)
         tvGrados = findViewById(R.id.tvGrados)
         tvEstado = findViewById(R.id.tvEstado)
 
         val ciudad = intent.getStringExtra("com.guido.clima.ciudades.CIUDAD")
-        val bsAs = Ciudad("Buenos Aires", 25, "Soleado")
-        val saoPablo = Ciudad("Sao Pablo", 30, "Cielo despejado")
 
-        if (ciudad == "buenos-aires") {
-            tvCiudad.text = bsAs.nombre
-            tvGrados.text = bsAs.grados.toString().plus("°")
-            tvEstado.text = bsAs.estado
-        } else if (ciudad == "sao-pablo") {
-            tvCiudad.text = saoPablo.nombre
-            tvGrados.text = saoPablo.grados.toString().plus("°")
-            tvEstado.text = saoPablo.estado
+        if (Network.hayRed(this)) {
+            Toast.makeText(this, "Hay red", Toast.LENGTH_SHORT).show()
+            volleyRequest("https://api.openweathermap.org/data/2.5/weather?id=${ciudad}&appid=e018858aca5d8b2e5a52ac03401d73d9&units=metric&lang=es")
+
+            //e018858aca5d8b2e5a52ac03401d73d9
+            //3435910
+
         } else {
-            Toast.makeText(this, "No se encuentra la información", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "No hay red", Toast.LENGTH_SHORT).show()
         }
-
     }
 
-    //Método para Volley: Implementación más simple y clara
-    private fun solicitudHTTPVolley(url:String) {
+    private fun volleyRequest(url: String) {
         val queue = Volley.newRequestQueue(this)
-        val solicitud = StringRequest(Request.Method.GET, url, Response.Listener<String>{
-            Log.d("solicitudHTTPVolleyy", it)
-        }, Response.ErrorListener {  })
+        val solicitud = StringRequest(Request.Method.GET, url, Response.Listener<String> {
+            Log.d("solicitudHTTPVolley", it)
+            val gson = Gson()
+            val city = gson.fromJson(it, Ciudad::class.java)
+            tvCiudad?.text = city?.name
+            tvGrados?.text = city?.main?.temp.toString().plus("°")
+            tvEstado?.text = city?.weather?.get(0)?.description
+        }, Response.ErrorListener {
+            Log.d("Error Volley: ", it.toString())
+        })
 
         queue.add(solicitud)
     }
 
-    // Método para OkHTTP: Mayor control en el Response
-    private fun solicitudHTTPOkHTTP(url: String){
-        val cliente = OkHttpClient()
-        val solicitud = okhttp3.Request.Builder().url(url).build()
-
-        cliente.newCall(solicitud).enqueue(object: okhttp3.Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                //Implementar error
-            }
-            override fun onResponse(call: Call, response: okhttp3.Response) {
-                val resultado = response.body?.string()
-
-                this@MainActivity.runOnUiThread {
-                    try {
-                        Log.d("solicitudOkHttp", resultado)
-                    } catch (e: Exception){
-
-                    }
-                }
-            }
-        })
-    }
 }
