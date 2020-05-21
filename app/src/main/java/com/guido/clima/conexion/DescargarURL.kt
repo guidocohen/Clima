@@ -28,8 +28,7 @@ class DescargarURL(var completadoListener: CompletadoListener?):AsyncTask<String
         var inputStream: InputStream? = null
 
         try {
-            val url = URL(url)
-            val conn = url.openConnection() as HttpURLConnection
+            val conn = URL(url).openConnection() as HttpURLConnection
             conn.requestMethod = "GET"
             conn.connect()
 

@@ -1,27 +1,34 @@
 package com.guido.clima
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.gson.Gson
 import com.guido.clima.conexion.Network
-import com.guido.clima.conexion.VolleyHttp
 
 class MainActivity : AppCompatActivity() {
     private lateinit var tvCiudad: TextView
     private lateinit var tvGrados: TextView
     private lateinit var tvEstado: TextView
+    private lateinit var toolbar: MaterialToolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        toolbar.setTitle(R.string.app_name)
         tvCiudad = findViewById(R.id.tvCiudad)
         tvGrados = findViewById(R.id.tvGrados)
         tvEstado = findViewById(R.id.tvEstado)
@@ -46,14 +53,32 @@ class MainActivity : AppCompatActivity() {
             Log.d("solicitudHTTPVolley", it)
             val gson = Gson()
             val city = gson.fromJson(it, Ciudad::class.java)
-            tvCiudad?.text = city?.name
-            tvGrados?.text = city?.main?.temp.toString().plus("°")
-            tvEstado?.text = city?.weather?.get(0)?.description
+            tvCiudad.text = city?.name
+            tvGrados.text = city?.main?.temp.toString().plus("°")
+            tvEstado.text = city?.weather?.get(0)?.description
         }, Response.ErrorListener {
             Log.d("Error Volley: ", it.toString())
         })
 
         queue.add(solicitud)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.bFav -> {
+                Toast.makeText(this, "Elemento añadido como favorito", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
     }
 
 }
